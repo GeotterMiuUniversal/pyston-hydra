@@ -27,13 +27,12 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Instalar paquetes del Android SDK
+        run: |
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platform-tools" "platforms;android-34" "build-tools;34.0.0" > /dev/null
 
-      - name: Install SDK packages
-        run: sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
-
-      - name: Install dependencias
+      - name: Instalar dependencias
         working-directory: mobile
         run: npm install --no-audit --no-fund
 
@@ -52,7 +51,7 @@ jobs:
 
       - name: Renombrar APK
         run: |
-          mv android/app/build/outputs/apk/debug/app-debug.apk PYSTON-HYDRA-debug.apk
+          mv mobile/android/app/build/outputs/apk/debug/app-debug.apk PYSTON-HYDRA-debug.apk
           ls -lh PYSTON-HYDRA-debug.apk
 
       - name: Subir APK
