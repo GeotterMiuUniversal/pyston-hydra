@@ -199,9 +199,6 @@ const PRICING = {
   },
 
   apply() {
-    document.querySelectorAll('[data-source]').forEach((el) => {
-      el.textContent = PRICING.source === 'precios.json' ? 'precios.json' : 'valores locales';
-    });
     PRICING.renderPrices();
     PRICING.renderHorarios();
     PRICING.renderPhone();

@@ -1,26 +1,71 @@
 const header = document.getElementById('header');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+const hamburger = document.getElementById('hamburger');
+
 const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 40);
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
 
-const hamburger = document.getElementById('hamburger');
-const nav = document.getElementById('nav');
+function openMenu() {
+  sidebar.classList.add('open');
+  overlay.hidden = false;
+  requestAnimationFrame(() => overlay.classList.add('open'));
+  hamburger.classList.add('open');
+  hamburger.setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+}
 
-const closeMenu = () => {
-  nav.classList.remove('open');
+function closeMenu() {
+  sidebar.classList.remove('open');
+  overlay.classList.remove('open');
   hamburger.classList.remove('open');
   hamburger.setAttribute('aria-expanded', 'false');
   document.body.style.overflow = '';
-};
+  setTimeout(() => {
+    if (!sidebar.classList.contains('open')) overlay.hidden = true;
+  }, 350);
+}
+
+function showSection(id) {
+  const target = document.getElementById(id);
+  if (!target) return;
+
+  document.querySelectorAll('.section-content').forEach((sec) => sec.classList.remove('active'));
+  target.classList.add('active');
+
+  document.querySelectorAll('.nav-btn').forEach((btn) => {
+    btn.classList.toggle('active', btn.dataset.target === id);
+  });
+
+  target.querySelectorAll('.reveal').forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), i * 70);
+  });
+
+  window.scrollTo({ top: 0, behavior: 'auto' });
+  closeMenu();
+}
 
 hamburger.addEventListener('click', () => {
-  const isOpen = nav.classList.toggle('open');
-  hamburger.classList.toggle('open', isOpen);
-  hamburger.setAttribute('aria-expanded', String(isOpen));
-  document.body.style.overflow = isOpen ? 'hidden' : '';
+  sidebar.classList.contains('open') ? closeMenu() : openMenu();
 });
 
-nav.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+overlay.addEventListener('click', closeMenu);
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeMenu();
+});
+
+document.querySelectorAll('.nav-btn').forEach((btn) => {
+  btn.addEventListener('click', () => showSection(btn.dataset.target));
+});
+
+document.querySelectorAll('[data-go]').forEach((el) => {
+  el.addEventListener('click', (e) => {
+    e.preventDefault();
+    showSection(el.dataset.go);
+  });
+});
 
 function resolveServiceName(el) {
   const id = el.dataset.waServiceId;
@@ -41,53 +86,6 @@ document.querySelectorAll('[data-wa-generic]').forEach((el) => {
     window.open(PRICING.link(PRICING.genericMessage()), '_blank', 'noopener');
   });
 });
-
-document.addEventListener('click', (e) => {
-  const trigger = e.target.closest('[data-wa-service]');
-  if (!trigger) return;
-  e.preventDefault();
-  window.open(PRICING.link(PRICING.serviceMessage(resolveServiceName(trigger))), '_blank', 'noopener');
-});
-
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.12 }
-);
-
-document.querySelectorAll('.reveal').forEach((el, i) => {
-  el.style.transitionDelay = `${(i % 3) * 0.08}s`;
-  observer.observe(el);
-});
-
-const counterObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      const el = entry.target;
-      const target = Number(el.dataset.count);
-      const duration = 1600;
-      const start = performance.now();
-      const tick = (now) => {
-        const progress = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        el.textContent = Math.round(target * eased).toLocaleString('es-VE');
-        if (progress < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-      counterObserver.unobserve(el);
-    });
-  },
-  { threshold: 0.5 }
-);
-
-document.querySelectorAll('[data-count]').forEach((el) => counterObserver.observe(el));
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
