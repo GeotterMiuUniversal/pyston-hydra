@@ -15,26 +15,73 @@ Plataforma digital para **PYSTON HYDRA**, taller de motos de alta gama y venta d
 - **Botones de navegación** Google Maps y Waze hacia Barquisimeto.
 - Animaciones de aparición al hacer scroll, contadores animados, menú móvil y botón flotante de WhatsApp.
 
+## ⭐ Cambiar precios: solo edita `precios.json`
+
+**Un único archivo controla los precios de la web Y de la app móvil.** No hay que tocar código.
+
+```
+precios.json
+├── negocio   → nombre, ciudad, dirección, WhatsApp, horarios
+├── servicios → nombre, precio, duración, descripción
+├── categorias→ filtros, frenos, aceites, llantas, eléctrico, accesorios
+├── repuestos → nombre, marca, precio, categoría, modelos, stock
+└── grua      → zona, disponibilidad, tarifa
+```
+
+Editas el archivo en GitHub → se actualiza la **web** y la **app** automáticamente.
+
+### Formatos de precio admitidos
+
+| En `precios.json` | Resultado en pantalla |
+|---|---|
+| `35` | `$35` |
+| `"$35 – $50"` | `$35 – $50` |
+| `{ "min": 35, "max": 50 }` | `$35 – $50` |
+| `{ "desde": 150 }` | `Desde $150` |
+| `{ "hasta": 45 }` | `Hasta $45` |
+| `{ "texto": "Consultar" }` | `Consultar` |
+
+### Ejemplo
+
+```json
+{
+  "id": "aceite",
+  "nombre": "Cambio de Aceite Sintético + Filtro + Revisión 15 Puntos",
+  "precio": { "min": 15, "max": 25 },
+  "duracion": "1 hora",
+  "activo": true
+}
+```
+
+> `activo: false` oculta el servicio sin borrarlo del archivo.
+
+**Número de WhatsApp**: se cambia en `precios.json` → `negocio.whatsapp` (código de país + número, solo dígitos: `584129430088`).
+
 ## Estructura del Proyecto
 
 ```
 pyston-hydra/
+├── precios.json            # ⭐ FUENTE ÚNICA de precios y datos del negocio
 ├── index.html              # Landing page principal
 ├── css/
 │   └── styles.css          # Estilos premium (carbón + dorado)
 ├── js/
-│   └── main.js             # Lógica WhatsApp, menú móvil, animaciones
+│   ├── pricing.js          # Carga precios.json, formatea precios y crea enlaces de WhatsApp
+│   └── main.js             # Menú móvil, animaciones, eventos
 ├── assets/
 │   └── logo.svg            # Logo PYSTON HYDRA
 ├── mobile/                 # App móvil (React Native + Expo)
 │   ├── App.js
 │   ├── package.json
 │   └── src/
+│       ├── config/         # URL del catálogo + catálogo de respaldo
+│       ├── services/       # catalogApi.js (fetch + formato de precios)
+│       ├── hooks/          # useCatalog.js
+│       ├── data/           # repairs.js (órdenes de reparación)
 │       ├── theme/          # Colores y estilos base
-│       ├── config/         # Constantes (WhatsApp, API)
 │       ├── components/     # Componentes UI reutilizables
 │       ├── screens/        # Pantallas de la app
-│        └── navigation/   # Navegación (tabs + stack)
+│       └── navigation/     # Navegación (tabs + stack)
 └── README.md
 ```
 
@@ -46,19 +93,17 @@ pyston-hydra/
 4. Guarda. Tu página estará disponible en:
    `https://<tu-usuario>.github.io/pyston-hydra/`
 
-## Configuración Obligatoria: Número de WhatsApp
+## Configuración del Número de WhatsApp
 
-Abre `js/main.js` y reemplaza el número en el objeto `CONFIG`:
+Ya no se edita en el código. Define el número en `precios.json`:
 
-```js
-const CONFIG = {
-  WHATSAPP_NUMBER: '584123456789',  // ← Coloca tu número real (código país + número, sin "+")
-  BUSINESS_NAME: 'PYSTON HYDRA',
-  CITY: 'Barquisimeto'
-};
+```json
+"negocio": {
+  "whatsapp": "584129430088"
+}
 ```
 
-Formato: código de país + número, solo dígitos. Ejemplo Venezuela: `58412XXXXXXX`.
+Formato: código de país + número, solo dígitos (sin `+`).
 
 ## Formato del Mensaje de WhatsApp
 

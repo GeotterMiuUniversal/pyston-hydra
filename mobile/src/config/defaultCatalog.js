@@ -1,0 +1,41 @@
+export const DEFAULT_CATALOG = {
+  negocio: {
+    nombre: 'PYSTON HYDRA',
+    lema: 'Ingeniería, Evolución y Rendimiento para tu Motocicleta',
+    ciudad: 'Barquisimeto',
+    estado: 'Estado Lara',
+    pais: 'Venezuela',
+    direccion: 'Barquisimeto, Estado Lara, Venezuela',
+    whatsapp: '584129430088',
+    horarios: [
+      { dias: 'Lunes a Viernes', horario: '8:00 AM – 6:00 PM' },
+      { dias: 'Sábado', horario: '8:00 AM – 1:00 PM' },
+      { dias: 'Domingo', horario: 'Cerrado' },
+    ],
+  },
+  servicios: [
+    { id: 'mantenimiento', nombre: 'Mantenimiento General Preventivo', precio: { min: 35, max: 50 }, duracion: '2 – 3 horas', descripcion: 'Limpieza de carburador/cuerpo de aceleración, ajuste de guayas, frenos, lubricación de cadena y escaneo técnico completo.' },
+    { id: 'aceite', nombre: 'Cambio de Aceite Sintético + Filtro + Revisión 15 Puntos', precio: { min: 15, max: 25 }, duracion: '1 hora', descripcion: 'Aceite sintético premium, filtro nuevo y revisión de 15 puntos de seguridad.' },
+    { id: 'inyectores', nombre: 'Limpieza y Calibración de Inyectores (Ultrasonido)', precio: { min: 20, max: 30 }, duracion: '3 horas', descripcion: 'Lavado por ultrasonido, prueba de caudal y calibración electrónica.' },
+    { id: 'motor', nombre: 'Reparación / Overhaul de Motor Completo', precio: { desde: 150 }, duracion: '5 – 10 días', descripcion: 'Desarme, rectificado, ajuste de tolerancias y ensamblaje con componentes de primera.' },
+    { id: 'electrico', nombre: 'Sistema Eléctrico & Diagnóstico Computarizado', precio: { min: 20, max: 35 }, duracion: '1 – 2 horas', descripcion: 'Escaneo OBD, análisis de sensores, bobinas, CDI y cableado completo.' },
+    { id: 'suspension', nombre: 'Servicio Premium Suspenciones y Frenos ABS', precio: { min: 30, max: 45 }, duracion: '2 – 4 horas', descripcion: 'Regulación de suspensión, purgado ABS y pastillas cerámicas.' },
+  ],
+  categorias: [
+    { id: 'filtros', nombre: 'Filtros & Kits', detalle: 'Aire · Aceite · Combustible' },
+    { id: 'frenos', nombre: 'Frenos', detalle: 'Pastillas · Discos · ABS' },
+    { id: 'aceites', nombre: 'Aceites Sintéticos', detalle: '10W-40 · 15W-50 · 20W-50' },
+    { id: 'llantas', nombre: 'Llantas', detalle: 'Deportivas · Dual Sport' },
+    { id: 'electrico', nombre: 'Eléctrico', detalle: 'CDI · Bobinas · Baterías' },
+    { id: 'accesorios', nombre: 'Accesorios', detalle: 'Protección · Estilo · Touring' },
+  ],
+  repuestos: [
+    { id: 'filtro-aire-kn', nombre: 'Filtro de aire deportivo', marca: 'K&N', precio: { desde: 38 }, categoria: 'filtros', modelos: 'Universal', stock: true },
+    { id: 'pastillas-brembo', nombre: 'Pastillas de freno cerámicas', marca: 'Brembo', precio: { desde: 45 }, categoria: 'frenos', modelos: 'Honda CB · Yamaha MT', stock: true },
+    { id: 'aceite-motul', nombre: 'Aceite sintético 10W-40 (1L)', marca: 'Motul', precio: { desde: 14 }, categoria: 'aceites', modelos: 'Universal', stock: true },
+    { id: 'llanta-pirelli', nombre: 'Llanta deportiva 120/70-17', marca: 'Pirelli', precio: { desde: 120 }, categoria: 'llantas', modelos: 'Deportivas 600cc', stock: true },
+    { id: 'bateria-litio', nombre: 'Batería de litio 12V', marca: 'Shorai', precio: { desde: 95 }, categoria: 'electrico', modelos: 'Universal', stock: true },
+    { id: 'kit-cadena', nombre: 'Kit cadena + corona', marca: 'DID', precio: { desde: 85 }, categoria: 'accesorios', modelos: 'CB650R · MT-07', stock: true },
+  ],
+  grua: { zona: 'Barquisimeto y alrededores', precio: { texto: 'Consultar según distancia' }, disponible: true, horario: '24 horas' },
+};

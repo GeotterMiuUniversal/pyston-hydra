@@ -1,31 +1,42 @@
 import React from 'react';
-import { View, Text, ScrollView, StyleSheet, Linking } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Linking, RefreshControl } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PrimaryButton from '../components/PrimaryButton';
 import ServiceCard from '../components/ServiceCard';
+import useCatalog from '../hooks/useCatalog';
+import { whatsAppLink, messages } from '../services/catalogApi';
 import { colors, spacing } from '../theme/colors';
-import { CONFIG, SERVICES } from '../config/constants';
 
 export default function HomeScreen({ navigation }) {
-  const openWhatsApp = (serviceName) => {
-    const message = `Hola ${CONFIG.BUSINESS_NAME}, me interesa el servicio de ${serviceName} para mi moto [Modelo/Año]. Quisiera agendar una revisión en su taller de ${CONFIG.CITY}.`;
-    Linking.openURL(`https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`);
-  };
+  const { catalog, loading, refresh } = useCatalog();
+  const servicios = catalog?.servicios || [];
+  const negocio = catalog?.negocio;
+
+  const openWhatsApp = (serviceName) =>
+    Linking.openURL(whatsAppLink((n) => messages.servicio(n, serviceName), catalog));
 
   return (
     <SafeAreaView style={styles.safe}>
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+        refreshControl={<RefreshControl refreshing={loading && !!catalog} onRefresh={refresh} tintColor={colors.gold} />}
+      >
         <View style={styles.hero}>
-          <Text style={styles.eyebrow}>Barquisimeto · Estado Lara</Text>
-          <Text style={styles.title}>Ingeniería, Evolución y Rendimiento</Text>
+          <Text style={styles.eyebrow}>{negocio?.ciudad || 'Barquisimeto'} · {negocio?.estado || 'Estado Lara'}</Text>
+          <Text style={styles.title}>{negocio?.lema || 'Ingeniería, Evolución y Rendimiento'}</Text>
           <Text style={styles.subtitle}>
             Tu taller de alta gama. Agenda, consulta repuestos y rastrea tu reparación desde un solo lugar.
           </Text>
-          <PrimaryButton title="Agendar Cita por WhatsApp" onPress={() => openWhatsApp('una revisión general')} />
+          <PrimaryButton
+            title="Agendar Cita por WhatsApp"
+            onPress={() => Linking.openURL(whatsAppLink(messages.general, catalog))}
+          />
+          <Text style={styles.source}>Precios: {catalog?.source || 'cargando…'}{catalog?.offline ? ' (sin conexión)' : ''}</Text>
         </View>
 
         <Text style={styles.sectionTitle}>Servicios &amp; Tarifas</Text>
-        {SERVICES.map((service) => (
+        {servicios.map((service) => (
           <ServiceCard key={service.id} service={service} onRequest={openWhatsApp} />
         ))}
 
@@ -33,13 +44,13 @@ export default function HomeScreen({ navigation }) {
           <PrimaryButton
             title="Rastrear Reparación"
             variant="ghost"
-            onPress={() => navigation.navigate('Tracking')}
+            onPress={() => navigation.navigate('Rastreo')}
             style={styles.quickBtn}
           />
           <PrimaryButton
-            title="Pedir Grúa / Auxilio"
+            title="Pedir Grúa"
             variant="ghost"
-            onPress={() => navigation.navigate('Booking', { mode: 'grua' })}
+            onPress={() => navigation.navigate('Citas', { mode: 'grua' })}
             style={styles.quickBtn}
           />
         </View>
@@ -61,6 +72,7 @@ const styles = StyleSheet.create({
     textAlign: 'center', lineHeight: 32, marginBottom: spacing.sm,
   },
   subtitle: { color: colors.textDim, fontSize: 14, textAlign: 'center', marginBottom: spacing.lg, paddingHorizontal: spacing.md },
+  source: { color: colors.textDim, fontSize: 10, marginTop: spacing.md, opacity: 0.7, letterSpacing: 0.6 },
   sectionTitle: { color: colors.gold, fontSize: 18, fontWeight: '800', marginBottom: spacing.md, marginTop: spacing.md },
   quickActions: { flexDirection: 'row', gap: spacing.sm, marginTop: spacing.md },
   quickBtn: { flex: 1 },

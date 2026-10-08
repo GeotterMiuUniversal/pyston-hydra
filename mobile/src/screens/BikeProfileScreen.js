@@ -3,18 +3,8 @@ import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import BikeCard from '../components/BikeCard';
 import PrimaryButton from '../components/PrimaryButton';
+import { MOCK_BIKES, MOCK_HISTORY } from '../data/repairs';
 import { colors, spacing } from '../theme/colors';
-
-const MOCK_BIKES = [
-  { id: 1, model: 'Honda CB650R', year: 2022, plate: 'ABC123', mileage: 18450, nextService: '10,000 km · Aceite + Filtro' },
-  { id: 2, model: 'Yamaha MT-07', year: 2020, plate: 'XYZ789', mileage: 32100, nextService: '35,000 km · Revisión completa' },
-];
-
-const MOCK_HISTORY = [
-  { date: '12 Sep 2026', service: 'Cambio de aceite sintético + filtro', cost: '$22', mileage: 18450 },
-  { date: '28 Jul 2026', service: 'Limpieza y calibración de inyectores', cost: '$28', mileage: 16200 },
-  { date: '10 May 2026', service: 'Mantenimiento preventivo general', cost: '$45', mileage: 13800 },
-];
 
 export default function BikeProfileScreen() {
   return (

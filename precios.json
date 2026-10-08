@@ -1,0 +1,104 @@
+{
+  "_nota": "EDITA SOLO ESTE ARCHIVO para cambiar precios, servicios, repuestos, horarios y número de WhatsApp. La web y la app leen de aquí automáticamente.",
+  "_formato_precio": {
+    "numero": "35  ->  $35",
+    "texto": "'$35 – $50' -> se muestra tal cual",
+    "rango": "{ \"min\": 35, \"max\": 50 } -> $35 – $50",
+    "desde": "{ \"desde\": 150 } -> Desde $150",
+    "hasta": "{ \"hasta\": 45 } -> Hasta $45"
+  },
+  "negocio": {
+    "nombre": "PYSTON HYDRA",
+    "lema": "Ingeniería, Evolución y Rendimiento para tu Motocicleta",
+    "ciudad": "Barquisimeto",
+    "estado": "Estado Lara",
+    "pais": "Venezuela",
+    "direccion": "Barquisimeto, Estado Lara, Venezuela",
+    "whatsapp": "584129430088",
+    "email": "taller@pystonhydra.ve",
+    "horarios": [
+      { "dias": "Lunes a Viernes", "horario": "8:00 AM – 6:00 PM" },
+      { "dias": "Sábado", "horario": "8:00 AM – 1:00 PM" },
+      { "dias": "Domingo", "horario": "Cerrado" }
+    ]
+  },
+  "moneda": "USD",
+  "servicios": [
+    {
+      "id": "mantenimiento",
+      "nombre": "Mantenimiento General Preventivo",
+      "precio": { "min": 35, "max": 50 },
+      "duracion": "2 – 3 horas",
+      "descripcion": "Limpieza de carburador/cuerpo de aceleración, ajuste de guayas, frenos, lubricación de cadena y escaneo técnico completo.",
+      "activo": true
+    },
+    {
+      "id": "aceite",
+      "nombre": "Cambio de Aceite Sintético + Filtro + Revisión 15 Puntos",
+      "precio": { "min": 15, "max": 25 },
+      "duracion": "1 hora",
+      "descripcion": "Aceite sintético premium, filtro nuevo y revisión de 15 puntos de seguridad. Precio según viscosidad y marca.",
+      "activo": true
+    },
+    {
+      "id": "inyectores",
+      "nombre": "Limpieza y Calibración de Inyectores (Ultrasonido)",
+      "precio": { "min": 20, "max": 30 },
+      "duracion": "3 horas",
+      "descripcion": "Lavado por ultrasonido, prueba de caudal y calibración electrónica para una combustión óptima y menor consumo.",
+      "activo": true
+    },
+    {
+      "id": "motor",
+      "nombre": "Reparación / Overhaul de Motor Completo",
+      "precio": { "desde": 150 },
+      "duracion": "5 – 10 días",
+      "descripcion": "Desarme, rectificado, ajuste de tolerancias y ensamblaje con componentes de primera. Cotización previa sin compromiso.",
+      "activo": true
+    },
+    {
+      "id": "electrico",
+      "nombre": "Sistema Eléctrico & Diagnóstico Computarizado",
+      "precio": { "min": 20, "max": 35 },
+      "duracion": "1 – 2 horas",
+      "descripcion": "Escaneo OBD con equipo de última generación, análisis de sensores, bobinas, CDI y cableado completo.",
+      "activo": true
+    },
+    {
+      "id": "suspension",
+      "nombre": "Servicio Premium Suspenciones y Frenos ABS",
+      "precio": { "min": 30, "max": 45 },
+      "duracion": "2 – 4 horas",
+      "descripcion": "Regulación de suspensión delantera y trasera, purgado de frenos ABS, pastillas cerámicas y prueba de frenado en banco.",
+      "activo": true
+    }
+  ],
+  "categorias": [
+    { "id": "filtros", "nombre": "Filtros & Kits", "detalle": "Aire · Aceite · Combustible" },
+    { "id": "frenos", "nombre": "Frenos", "detalle": "Pastillas · Discos · ABS" },
+    { "id": "aceites", "nombre": "Aceites Sintéticos", "detalle": "10W-40 · 15W-50 · 20W-50" },
+    { "id": "llantas", "nombre": "Llantas", "detalle": "Deportivas · Dual Sport" },
+    { "id": "electrico", "nombre": "Eléctrico", "detalle": "CDI · Bobinas · Baterías" },
+    { "id": "accesorios", "nombre": "Accesorios", "detalle": "Protección · Estilo · Touring" }
+  ],
+  "repuestos": [
+    { "id": "filtro-aire-kn", "nombre": "Filtro de aire deportivo", "marca": "K&N", "precio": { "desde": 38 }, "categoria": "filtros", "modelos": "Universal", "stock": true },
+    { "id": "filtro-aceite-honda", "nombre": "Filtro de aceite original", "marca": "Honda", "precio": { "desde": 12 }, "categoria": "filtros", "modelos": "CB650R · MT-07", "stock": true },
+    { "id": "pastillas-brembo", "nombre": "Pastillas de freno cerámicas", "marca": "Brembo", "precio": { "desde": 45 }, "categoria": "frenos", "modelos": "Honda CB · Yamaha MT", "stock": true },
+    { "id": "disco-freno", "nombre": "Disco de freno flotante", "marca": "Nissin", "precio": { "desde": 60 }, "categoria": "frenos", "modelos": "Deportivas 600cc", "stock": false },
+    { "id": "aceite-motul", "nombre": "Aceite sintético 10W-40 (1L)", "marca": "Motul", "precio": { "desde": 14 }, "categoria": "aceites", "modelos": "Universal", "stock": true },
+    { "id": "aceite-shell", "nombre": "Aceite Advance AXO 15W-50 (1L)", "marca": "Shell", "precio": { "desde": 13 }, "categoria": "aceites", "modelos": "Universal", "stock": true },
+    { "id": "llanta-pirelli", "nombre": "Llanta deportiva 120/70-17", "marca": "Pirelli", "precio": { "desde": 120 }, "categoria": "llantas", "modelos": "Deportivas 600cc", "stock": true },
+    { "id": "llanta-michelin", "nombre": "Llanta Dual Sport 180/55-17", "marca": "Michelin", "precio": { "desde": 135 }, "categoria": "llantas", "modelos": "Adventure 700cc", "stock": false },
+    { "id": "bateria-litio", "nombre": "Batería de litio 12V", "marca": "Shorai", "precio": { "desde": 95 }, "categoria": "electrico", "modelos": "Universal", "stock": true },
+    { "id": "bobina-cdi", "nombre": "Bobina de encendido + CDI", "marca": "Denso", "precio": { "desde": 70 }, "categoria": "electrico", "modelos": "Honda · Yamaha", "stock": true },
+    { "id": "protector-tanque", "nombre": "Protector de tanque en fibra de carbono", "marca": "HYDRA", "precio": { "desde": 85 }, "categoria": "accesorios", "modelos": "Universal", "stock": true },
+    { "id": "kit-cadena", "nombre": "Kit cadena + corona", "marca": "DID", "precio": { "desde": 85 }, "categoria": "accesorios", "modelos": "CB650R · MT-07", "stock": true }
+  ],
+  "grua": {
+    "zona": "Barquisimeto y alrededores",
+    "precio": { "texto": "Consultar según distancia" },
+    "disponible": true,
+    "horario": "24 horas"
+  }
+}

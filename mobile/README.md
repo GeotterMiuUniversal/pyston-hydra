@@ -24,25 +24,37 @@ Escanea el código QR con Expo Go (Android/iOS) o presiona `a` / `i` para emulad
 
 ## Configuración
 
-Edita `src/config/constants.js`:
+Los **precios, servicios, repuestos, horarios y número de WhatsApp** NO están en el código.
+Todo se lee del archivo `precios.json` publicado en GitHub Pages:
 
-- `WHATSAPP_NUMBER`: número del taller (código país + número, sin `+`).
-- `SERVICES`: catálogo de servicios y precios.
-- `PARTS_CATEGORIES`: categorías del catálogo de repuestos.
-- `REPAIR_STATUS`: estados del flujo de reparación.
+```
+https://geottermiuuniversal.github.io/pyston-hydra/precios.json
+```
+
+- `src/config/constants.js` → URL del catálogo, estados de reparación y enlaces de mapas.
+- `src/services/catalogApi.js` → descarga, normaliza y formatea el catálogo (con copia local de respaldo si no hay internet).
+- `src/config/defaultCatalog.js` → copia local de respaldo (última versión conocida).
+- `src/hooks/useCatalog.js` → hook React para leer el catálogo y refrescarlo.
+
+Si editas `precios.json` en GitHub, la web y la app muestran los precios nuevos automáticamente.
 
 ## Estructura
 
 ```
 src/
-├── theme/colors.js        # Paleta carbón + dorado, espaciados, radios
-├── config/constants.js    # WhatsApp, servicios, repuestos, estados
-├── components/            # PrimaryButton, ServiceCard, SearchBar, StatusBadge, BikeCard
-├── screens/               # Home, BikeProfile, Booking, PartsCatalog, Tracking
-└── navigation/            # Tabs + Stack (React Navigation)
+├── config/defaultCatalog.js  # Respaldo local del catálogo
+├── config/constants.js       # URL del catálogo, estados, mapas
+├── services/catalogApi.js    # Fetch + normalización + formateo de precios
+├── hooks/useCatalog.js       # Hook de React para el catálogo
+├── data/repairs.js           # Órdenes de reparación (mock hasta conectar backend)
+├── theme/colors.js           # Paleta carbón + dorado
+├── components/               # PrimaryButton, ServiceCard, SearchBar, StatusBadge, BikeCard
+├── screens/                  # Home, BikeProfile, Booking, PartsCatalog, Tracking
+└── navigation/               # Tabs + Stack (React Navigation)
 ```
 
 ## Notas de producción
 
-- Reemplaza los datos mock (`MOCK_BIKES`, `MOCK_PARTS`, `MOCK_ORDERS`) por llamadas a tu backend (Firebase, Supabase o API propia).
+- Reemplaza `src/data/repairs.js` (mocks) por tu backend: Firebase (Firestore + listeners en tiempo real) o una API propia.
+- `useCatalog` ya está preparado: al conectar Firestore, sustituye `loadCatalog()` por la consulta al servidor.
 - Para notificaciones push de estatus, integra Expo Notifications o Firebase Cloud Messaging.
