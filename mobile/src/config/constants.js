@@ -1,5 +1,5 @@
 export const CONFIG = {
-  WHATSAPP_NUMBER: '584123456789',
+  WHATSAPP_NUMBER: '584129430088',
   BUSINESS_NAME: 'PYSTON HYDRA',
   CITY: 'Barquisimeto',
   ADDRESS: 'Barquisimeto, Estado Lara, Venezuela',
