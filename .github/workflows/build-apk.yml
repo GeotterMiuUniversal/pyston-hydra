@@ -43,6 +43,11 @@ jobs:
           CI: '1'
         run: npx expo prebuild --platform android --clean --non-interactive
 
+      # Los build de debug omiten el bundle JS y solo sirven con Metro encendido.
+      # Al forzarlo, el APK se puede instalar y usar directamente en el celular.
+      - name: Incluir el bundle JS en el APK
+        run: echo "react { debuggableVariants = [] }" >> mobile/android/app/build.gradle
+
       - name: Compilar APK
         working-directory: mobile/android
         run: |
