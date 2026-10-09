@@ -38,12 +38,16 @@ function showSection(id) {
     btn.classList.toggle('active', btn.dataset.target === id);
   });
 
-  target.querySelectorAll('.reveal').forEach((el, i) => {
-    setTimeout(() => el.classList.add('visible'), i * 70);
-  });
-
-  window.scrollTo({ top: 0, behavior: 'auto' });
+  scrollToTopInstant();
   closeMenu();
+}
+
+function scrollToTopInstant() {
+  const root = document.documentElement;
+  const prev = root.style.scrollBehavior;
+  root.style.scrollBehavior = 'auto';
+  window.scrollTo(0, 0);
+  root.style.scrollBehavior = prev;
 }
 
 hamburger.addEventListener('click', () => {
@@ -89,4 +93,5 @@ document.querySelectorAll('[data-wa-generic]').forEach((el) => {
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
+PRICING.apply();
 PRICING.load().then(() => PRICING.apply());

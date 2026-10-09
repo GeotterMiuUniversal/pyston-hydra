@@ -6,11 +6,10 @@
   <meta name="description" content="PYSTON HYDRA — Taller de motos de alta gama y repuestos exclusivos en Barquisimeto, Venezuela. Ingeniería, evolución y rendimiento para tu motocicleta.">
   <meta name="theme-color" content="#0b0c0f">
   <title>PYSTON HYDRA | Taller de Motos de Alta Gama — Barquisimeto</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="favicon.ico" sizes="32x32">
+  <link rel="icon" href="assets/logo-icon.jpg" type="image/jpeg">
+  <link rel="preload" as="font" type="font/woff2" href="fonts/manrope-latin.woff2" crossorigin>
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="icon" type="image/jpeg" href="logo.jpg">
 </head>
 <body>
 
@@ -23,7 +22,7 @@
       </button>
 
       <a href="#" class="brand" data-go="home">
-        <img src="logo.jpg" alt="Logo PYSTON HYDRA" class="brand__logo">
+        <img src="assets/logo-icon.jpg" alt="Logo PYSTON HYDRA" class="brand__logo" width="44" height="44" decoding="async">
         <span class="brand__text">
           <span class="brand__name">PYSTON <em>HYDRA</em></span>
           <span class="brand__tag">Barquisimeto · Alta Gama</span>
@@ -66,7 +65,12 @@
 
     <section id="home" class="section-content active">
       <div class="home">
-        <img src="logo.jpg" alt="PYSTON HYDRA" class="home__logo">
+        <img src="assets/logo-hero.jpg"
+             srcset="assets/logo-hero-sm.jpg 400w, assets/logo-hero-520.jpg 520w, assets/logo-hero.jpg 680w, logo.jpg 760w"
+             sizes="(max-width: 500px) 69vw, 340px"
+             width="760" height="415"
+             alt="PYSTON HYDRA" class="home__logo"
+             fetchpriority="high" decoding="async">
         <p class="home__eyebrow">Barquisimeto · Estado Lara · Venezuela</p>
         <h1 class="home__title">Ingeniería, <span class="gold-text">Evolución</span> y Rendimiento para tu Motocicleta</h1>
         <p class="home__lead">

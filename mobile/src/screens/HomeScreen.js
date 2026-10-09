@@ -12,8 +12,8 @@ export default function HomeScreen({ navigation }) {
   const servicios = catalog?.servicios || [];
   const negocio = catalog?.negocio;
 
-  const openWhatsApp = (serviceName) =>
-    Linking.openURL(whatsAppLink((n) => messages.servicio(n, serviceName), catalog));
+  const openWhatsApp = (service) =>
+    Linking.openURL(whatsAppLink((n) => messages.servicio(n, service.name), catalog));
 
   return (
     <SafeAreaView style={styles.safe}>

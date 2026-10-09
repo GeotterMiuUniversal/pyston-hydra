@@ -67,7 +67,7 @@ const PRICING = {
 
   async load() {
     try {
-      const res = await fetch(`${DATA_URL}?t=${Date.now()}`, { cache: 'no-store' });
+      const res = await fetch(DATA_URL);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       if (!data || !Array.isArray(data.servicios)) throw new Error('JSON invalido');
@@ -204,7 +204,8 @@ const PRICING = {
     PRICING.renderPhone();
 
     const search = document.getElementById('parts-search');
-    if (search) {
+    if (search && !search.dataset.bound) {
+      search.dataset.bound = '1';
       search.addEventListener('input', (e) => PRICING.renderPartsCatalog(e.target.value));
     }
     PRICING.renderPartsCatalog();

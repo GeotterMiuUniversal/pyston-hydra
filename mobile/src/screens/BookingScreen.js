@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, StyleSheet, Linking, TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PrimaryButton from '../components/PrimaryButton';
@@ -6,7 +6,7 @@ import useCatalog from '../hooks/useCatalog';
 import { whatsAppLink, messages } from '../services/catalogApi';
 import { colors, spacing, radius } from '../theme/colors';
 
-export default function BookingScreen({ route }) {
+export default function BookingScreen({ navigation, route }) {
   const mode = route?.params?.mode || 'cita';
   const { catalog } = useCatalog();
   const servicios = catalog?.servicios || [];
@@ -16,6 +16,13 @@ export default function BookingScreen({ route }) {
   const [modelo, setModelo] = useState('');
   const [fecha, setFecha] = useState('');
   const [direccion, setDireccion] = useState('');
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('blur', () => {
+      navigation.setParams({ mode: undefined });
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   const isGrua = mode === 'grua';
   const selected = servicios.find((s) => s.id === selectedId);

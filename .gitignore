@@ -3,3 +3,7 @@ node_modules/
 dist/
 *.log
 .DS_Store
+
+# Artefactos de build (el APK se publica como artefacto de GitHub Actions)
+*.apk
+mobile/android/
